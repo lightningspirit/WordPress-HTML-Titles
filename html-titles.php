@@ -3,7 +3,7 @@
 /*
 Plugin Name: HTML Titles
 Plugin URI: http://wordpress.org/extend/plugins/html-titles
-Version: 0.1
+Version: 0.2
 Description: A new tiny editor input is created. If used, it will replace the title in get_the_title() and the_title() tags.
 Author: lightningspirit
 Author URI: http://profiles.wordpress.org/lightningspirit
@@ -16,8 +16,8 @@ License: GPLv2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 /*
  * @package HTML Titles
- * @author Vitor Carvalho
- * @copyright lightningspirit 2013
+ * @author lightningspirit
+ * @copyright lightningspirit 2012-2013
  * This code is released under the GPL licence version 2 or later
  * http://www.gnu.org/licenses/gpl.txt
  */
@@ -30,26 +30,26 @@ if ( ! class_exists ( 'WP_HTML_Titles' ) ) :
  *
  * @package WordPress
  * @subpackage HTML Titles
- * @since 0.1
+ * @since 0.2
  */
 class WP_HTML_Titles {
 	
 	/** 
 	 * {@internal Missing Short Description}}
 	 * 
-	 * @since 0.1
+	 * @since 0.2
 	 * 
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', array( 'WP_HTML_Titles', 'init' ) );
+		add_action( 'plugins_loaded', array( __CLASS__, 'init' ) );
 
 	}
 	
 	/** 
 	 * {@internal Missing Short Description}}
 	 * 
-	 * @since 0.1
+	 * @since 0.2
 	 * 
 	 * @return void
 	 */
@@ -59,23 +59,23 @@ class WP_HTML_Titles {
 		load_plugin_textdomain( 'html-titles', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
 		// if new upgrade
-		if ( version_compare( (int) get_option( 'html_titles_plugin_version' ), '0.1', '<' ) )
-			add_action( 'admin_init', array( 'WP_HTML_Titles', 'do_upgrade' ) );
+		if ( version_compare( (int) get_option( 'html_titles_plugin_version' ), '0.2', '<' ) )
+			add_action( 'admin_init', array( __CLASS__, 'do_upgrade' ) );
 		
 		
 		/** Register actions for admin pages */
 		if ( is_admin() ) {
 			/** Add html title ditor CSS and JS */
-			add_action( 'admin_enqueue_scripts', array( 'WP_HTML_Titles', 'admin_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			/** Add html title editor */
-			add_action( 'edit_form_after_title', array( 'WP_HTML_Titles', 'edit_form_after_title' ) );
+			add_action( 'edit_form_after_title', array( __CLASS__, 'edit_form_after_title' ) );
 			/** Save the HTML title */
-			add_action( 'edit_post', array( 'WP_HTML_Titles', 'save_html_title_post' ) );
+			add_action( 'edit_post', array( __CLASS__, 'save_html_title_post' ) );
 			
 		}
 		
-		add_action( 'init', array( 'WP_HTML_Titles', 'add_default_post_type_support' ) );
-		add_filter( 'the_title', array( 'WP_HTML_Titles', 'the_title' ), 10, 2 );
+		add_action( 'init', array( __CLASS__, 'add_default_post_type_support' ) );
+		add_filter( 'the_title', array( __CLASS__, 'the_title' ), 10, 2 );
 		
 	}
 	
@@ -87,7 +87,7 @@ class WP_HTML_Titles {
 	 * @return void
 	 */
 	public static function do_upgrade() {
-		update_option( 'html_titles_plugin_version', '0.1' );
+		update_option( 'html_titles_plugin_version', '0.2' );
 		
 	}
 	
@@ -268,9 +268,6 @@ function html_titles_plugin_activation_hook() {
 		wp_die( 'HTML Title is not compatible with versions prior to 3.5' );
 
 	}
-
-	// Update to last version in
-	update_option( 'html_titles_plugin_version', '0.1' );
 
 }
 register_activation_hook( __FILE__, 'html_titles_plugin_activation_hook' );
