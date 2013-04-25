@@ -1,0 +1,17 @@
+[contenteditable="true"].html-title-editor {
+    white-space: nowrap;
+    overflow: hidden;
+} 
+[contenteditable="true"].html-title-editor br {
+    display: none;
+}
+[contenteditable="true"].html-title-editor * {
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+body.html-title-editor {
+	font-family: sans-serif;
+	font-size: 1.3em;
+}
