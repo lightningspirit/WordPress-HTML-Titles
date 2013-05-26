@@ -3,7 +3,7 @@
 /*
 Plugin Name: HTML Titles
 Plugin URI: http://wordpress.org/extend/plugins/html-titles
-Version: 0.2
+Version: 0.3
 Description: A new tiny editor input is created. If used, it will replace the title in get_the_title() and the_title() tags.
 Author: lightningspirit
 Author URI: http://profiles.wordpress.org/lightningspirit
