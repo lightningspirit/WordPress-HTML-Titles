@@ -237,8 +237,8 @@ class WP_HTML_Titles {
 	 * @param int $post_id
 	 * @return string
 	 */
-	public static function the_title( $title, $post_id ) {
-		if ( ! is_singular() || is_admin() )
+	public static function the_title( $title, $post_id = '' ) {
+		if ( ! is_singular() || is_admin() || empty( $post_id ) )
 			return $title;
 		
 		if ( $html_title = get_post_meta( $post_id, '_wp_html_title', true ) )
